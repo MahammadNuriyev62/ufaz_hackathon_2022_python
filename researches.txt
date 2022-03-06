@@ -1,0 +1,4 @@
+1. https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.259.3075&rep=rep1&type=pdf
+2. https://ieeexplore.ieee.org/document/4425083
+3. https://www.hindawi.com/journals/mpe/2018/5914360/
+4. https://www.researchgate.net/publication/228453626_Imperialist_Competitive_Algorithm_and_its_Application_in_Optimization_of_Laminated_Composite_Structures
