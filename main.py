@@ -25,10 +25,10 @@ def schwefel_function(*args):  # x and y
     return 418.9829 * dimension - sum(arg * sin(sqrt(abs(arg))) for arg in args)
 
 
-rosenbrock = Function(rosenbrock_function, -1, 1, 2)  # minimum -> 0
-ackley = Function(ackley_function, -1, 1, 2)  # minimum -> 0
-rastrigin = Function(rastrigin_function, -5.12, 5.12, 2)  # minimum -> 0
-schwefel = Function(schwefel_function, -500, 500, 2)  # minimum -> 0
+rosenbrock = Function(rosenbrock_function, -1, 1, 2)        # minimum --> 0
+ackley = Function(ackley_function, -1, 1, 2)                # minimum --> 0
+rastrigin = Function(rastrigin_function, -5.12, 5.12, 2)    # minimum --> 0
+schwefel = Function(schwefel_function, -500, 500, 2)        # minimum --> 0
 
 POPULATION_SIZE = 30
 IMPERIALISTS_SIZE = 5
@@ -54,7 +54,7 @@ if __name__ == '__main__':
     # visualize
     # comment to disable
     for name, function in functions:
-        print(f"\n\n\n/* <== {name} function ==> */")
+        print(f"\n\n/* <== {name} function ==> */")
         countries = [Country(function) for i in range(POPULATION_SIZE)]
         system = System(countries, IMPERIALISTS_SIZE)
         visual.visualize(system)
