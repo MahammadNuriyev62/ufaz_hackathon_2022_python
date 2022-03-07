@@ -1,5 +1,6 @@
 from inspect import signature
 from random import uniform
+import numpy
 
 from scipy.spatial import distance
 
@@ -29,6 +30,7 @@ class Country:
         self.generate_random_model()
 
     def generate_random_model(self):
+        # self.model = numpy.random.uniform(self.function.lower_bound, self.function.upper_bound, self.dimension)
         self.model = [uniform(self.function.lower_bound, self.function.upper_bound) for _ in range(self.dimension)]
         self.calculate_cost()
 

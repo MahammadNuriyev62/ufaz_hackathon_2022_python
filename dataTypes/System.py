@@ -1,5 +1,7 @@
 import random as rn
 
+import numpy
+
 from .Country import Country
 from .Empire import Empire
 
@@ -75,6 +77,9 @@ class System:
 
         R = [rn.uniform(0, 1) for _ in possessionProbabilities]
         D = [p - r for p, r in zip(possessionProbabilities, R)]
+
+        # D = numpy.subtract(possessionProbabilities, R)
+
 
         if isEmpireEmpty:
             minEmpire.delete_empire_to(minEmpire)

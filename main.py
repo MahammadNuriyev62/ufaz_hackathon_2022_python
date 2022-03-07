@@ -1,9 +1,9 @@
-import time
 from math import cos, exp, pi, sin, sqrt
 from dataTypes.Country import Country
 from dataTypes.Function import Function
 from dataTypes.System import System
 from helpers import nested
+from helpers.decorators import timer
 from visualization import visual
 
 
@@ -30,8 +30,8 @@ ackley = Function(ackley_function, -1, 1, 2)                # minimum --> 0
 rastrigin = Function(rastrigin_function, -5.12, 5.12, 2)    # minimum --> 0
 schwefel = Function(schwefel_function, -500, 500, 2)        # minimum --> 0
 
-POPULATION_SIZE = 30
-IMPERIALISTS_SIZE = 5
+POPULATION_SIZE = 100
+IMPERIALISTS_SIZE = 10
 COLONIES_SIZE = POPULATION_SIZE - IMPERIALISTS_SIZE
 
 functions = (
@@ -41,20 +41,26 @@ functions = (
         ("schwefel", schwefel)
     )
 
-if __name__ == '__main__':
+@timer
+def main(name, function):
+    print(f"\n\n\n/* <== {name} function ==> */")
+    countries = [Country(function) for _ in range(POPULATION_SIZE)]
+    system = System(countries, IMPERIALISTS_SIZE)
+    print(system.event_loop())
+    # nested.find_result(function, 30, POPULATION_SIZE, IMPERIALISTS_SIZE)
 
+
+if __name__ == '__main__':
     # compute minimum
     for name, function in functions:
-        print(f"\n\n\n/* <== {name} function ==> */")
-        countries = [Country(function) for i in range(POPULATION_SIZE)]
-        system = System(countries, IMPERIALISTS_SIZE)
-        print(system.event_loop())
-        nested.find_result(function, 30, POPULATION_SIZE, IMPERIALISTS_SIZE)
+        main(name, function)
 
-    # visualize
-    # comment to disable
-    for name, function in functions:
-        print(f"\n\n/* <== {name} function ==> */")
-        countries = [Country(function) for i in range(POPULATION_SIZE)]
-        system = System(countries, IMPERIALISTS_SIZE)
-        visual.visualize(system)
+    # # visualize
+    # # comment to disable
+    # for name, function in functions:
+    #     print(f"\n\n/* <== {name} function ==> */")
+    #     countries = [Country(function) for i in range(POPULATION_SIZE)]
+    #     system = System(countries, IMPERIALISTS_SIZE)
+    #     visual.visualize(system)
+
+
