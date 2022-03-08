@@ -82,7 +82,7 @@ class System:
 
 
         if isEmpireEmpty:
-            minEmpire.delete_empire_to(minEmpire)
+            minEmpire.delete_empire_to(self.empires[D.index(max(D))])
         else:
             minEmpire.transfer_country_to(minCountry, self.empires[D.index(max(D))])
 

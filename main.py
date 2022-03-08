@@ -24,13 +24,17 @@ def schwefel_function(*args):  # x and y
     dimension = len(args)
     return 418.9829 * dimension - sum(arg * sin(sqrt(abs(arg))) for arg in args)
 
+def custom_function(x: float, y: float, z: float):
+    return x + y + z
+
 
 rosenbrock = Function(rosenbrock_function, -1, 1, 2)        # minimum --> 0
 ackley = Function(ackley_function, -1, 1, 2)                # minimum --> 0
 rastrigin = Function(rastrigin_function, -5.12, 5.12, 2)    # minimum --> 0
 schwefel = Function(schwefel_function, -500, 500, 2)        # minimum --> 0
+custom = Function(custom_function, -3, 3)                   # minimum --> ...
 
-POPULATION_SIZE = 100
+POPULATION_SIZE = 70
 IMPERIALISTS_SIZE = 10
 COLONIES_SIZE = POPULATION_SIZE - IMPERIALISTS_SIZE
 
@@ -38,7 +42,8 @@ functions = (
         ("rosenbrock", rosenbrock),
         ("ackley", ackley),
         ("rastrigin", rastrigin),
-        ("schwefel", schwefel)
+        ("schwefel", schwefel),
+        ("custom", custom),
     )
 
 @timer
