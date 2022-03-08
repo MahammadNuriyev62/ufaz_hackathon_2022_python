@@ -34,16 +34,16 @@ rastrigin = Function(rastrigin_function, -5.12, 5.12, 2)    # minimum --> 0
 schwefel = Function(schwefel_function, -500, 500, 2)        # minimum --> 0
 custom = Function(custom_function, -3, 3)                   # minimum --> ...
 
-POPULATION_SIZE = 70
-IMPERIALISTS_SIZE = 10
+POPULATION_SIZE = 200
+IMPERIALISTS_SIZE = 50
 COLONIES_SIZE = POPULATION_SIZE - IMPERIALISTS_SIZE
 
 functions = (
-        ("rosenbrock", rosenbrock),
-        ("ackley", ackley),
-        ("rastrigin", rastrigin),
+        # ("rosenbrock", rosenbrock),
+        # ("ackley", ackley),
+        # ("rastrigin", rastrigin),
         ("schwefel", schwefel),
-        ("custom", custom),
+        # ("custom", custom),
     )
 
 @timer

@@ -33,22 +33,13 @@ class System:
             imperialist.status = Country.IMPERIALIST
 
         maxCost = min(self.countries).cost
-        normalizedCosts = []
-        for imperialist in imperialists:
-            normalizedCost = imperialist.cost - maxCost
-            normalizedCosts.append(normalizedCost)
+        normalizedCosts = [imperialist.cost - maxCost for imperialist in imperialists]
 
         sumOfNormalizedCost = sum(normalizedCosts)
-        powers = []
-        for normalizedCost in normalizedCosts:
-            power = abs(normalizedCost / sumOfNormalizedCost)
-            powers.append(power)
+        powers = [abs(normalizedCost / sumOfNormalizedCost) for normalizedCost in normalizedCosts]
 
         numberOfColonies = len(self.countries) - imperialists_number
-        numbers = []
-        for power in powers:
-            number = round(power * numberOfColonies)
-            numbers.append(number)
+        numbers = [round(power * numberOfColonies) for power in powers]
 
         self.distribute_colonies(numbers)
 
@@ -64,27 +55,16 @@ class System:
         isEmpireEmpty = len(minEmpire.colonies) == 0
         minCountry = minEmpire.imperialist if isEmpireEmpty else min(minEmpire.colonies)
 
-        normalizedTotalCosts = []
-        for empire in self.empires:
-            normalizedTotalCost = empire.totalCost + min(self.empires).totalCost  # min empire gives max cost
-            normalizedTotalCosts.append(normalizedTotalCost)
+        maxTotalCost = min(self.empires).totalCost
+        normalizedTotalCosts = [empire.totalCost + maxTotalCost for empire in self.empires]
 
         totalNormalizedTotalCosts = sum(normalizedTotalCosts)
-        possessionProbabilities = []
-        for normalizedTotalCost in normalizedTotalCosts:
-            possessionProbability = normalizedTotalCost / totalNormalizedTotalCosts
-            possessionProbabilities.append(possessionProbability)
+        possessionProbabilities = [normalizedTotalCost / totalNormalizedTotalCosts for normalizedTotalCost in normalizedTotalCosts]
 
-        R = [rn.uniform(0, 1) for _ in possessionProbabilities]
-        D = [p - r for p, r in zip(possessionProbabilities, R)]
+        D = [p - rn.uniform(0, 1) for p in possessionProbabilities]
 
-        # D = numpy.subtract(possessionProbabilities, R)
-
-
-        if isEmpireEmpty:
-            minEmpire.delete_empire_to(self.empires[D.index(max(D))])
-        else:
-            minEmpire.transfer_country_to(minCountry, self.empires[D.index(max(D))])
+        empire = self.empires[D.index(max(D))]
+        minEmpire.delete_empire_to(empire) if isEmpireEmpty else minEmpire.transfer_country_to(minCountry, empire)
 
     def event_loop(self):
         """

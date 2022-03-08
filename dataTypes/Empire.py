@@ -1,5 +1,4 @@
 import random as rn
-
 import numpy
 
 from .Country import Country
@@ -119,15 +118,11 @@ class Empire:
 
     def make_assimilation(self):
         for colony in self.colonies:
-            model = numpy.array(colony.model)
-            offsetArray = numpy.random.uniform(0, model * self.betta)
-            colony.model = list(model + offsetArray)
+            colony.model += numpy.random.uniform(0, colony.model * self.betta)
             self.check(colony)
 
     def make_revolution(self):
-        rn.shuffle(self.colonies)
-        revolutionaries: list[Country] = self.colonies[:round(
-            len(self.colonies) * self.revolutionRate)]
+        revolutionaries = rn.sample(self.colonies, round(len(self.colonies) * self.revolutionRate))
         for revolutionary in revolutionaries:
             revolutionary.generate_random_model()
             self.check(revolutionary)
